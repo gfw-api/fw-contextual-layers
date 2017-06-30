@@ -1,0 +1,12 @@
+{
+     "logger": {
+        "name": "node-skeleton-DEV",
+        "level": "debug",
+        "toFile": false,
+        "dirLogFile": null
+    },
+    "service": {
+        "name": "Node Skeleton",
+        "port": 3005
+    }
+}

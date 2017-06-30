@@ -1,0 +1,11 @@
+{
+	"name": "node-skeleton",
+	"endpoints": [{
+		"path": "/v1/service/hi",
+		"method": "GET",
+		"redirect": {
+			"method": "GET",
+			"path": "/api/v1/service/hi"
+		}
+	}]
+}
