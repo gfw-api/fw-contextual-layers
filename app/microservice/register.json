@@ -1,12 +1,22 @@
 {
 	"name": "#(service.name)",
 	"tags": ["fw"],
-	"endpoints": [{
+	"endpoints": [
+      {
 		"path": "/v1/contextual-layer",
 		"method": "GET",
 		"redirect": {
 			"method": "GET",
 			"path": "/api/v1/contextual-layer"
 		}
-	}]
+      },
+      {
+        "path": "/v1/contextual-layer",
+        "method": "POST",
+        "redirect": {
+          "method": "POST",
+          "path": "/api/v1/contextual-layer"
+        }
+      }
+    ]
 }

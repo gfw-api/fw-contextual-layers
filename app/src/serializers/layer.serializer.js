@@ -13,7 +13,7 @@ const layerSerializer = new JSONAPISerializer('layer', {
 
 class TeamSerializer {
   static serialize(data) {
-    return serializeLayer.serialize(data);
+    return layerSerializer.serialize(data);
   }
 }
 

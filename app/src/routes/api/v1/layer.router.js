@@ -1,5 +1,7 @@
 const Router = require('koa-router');
-
+const logger = require('logger');
+const LayerModel = require('models/layer.model');
+const LayerSerializer = require('serializers/layer.serializer');
 
 const router = new Router({
     prefix: '/contextual-layer',
@@ -7,14 +9,21 @@ const router = new Router({
 
 class Layer {
 
-    static sayHi(ctx) {
-        ctx.body = {
-            greeting: 'hi'
-        };
+    static async getAll(ctx) {
+      logger.info('Get all layers');
+      const layers = await LayerModel.find({});
+      ctx.body = LayerSerializer.serialize(layers);
+    }
+
+    static async create(ctx) {
+      logger.info('Create layer');
+      const layer = ctx.request.body;
+      ctx.body = layer;
     }
 
 }
 
-router.get('/', Layer.sayHi);
+router.get('/', Layer.getAll);
+router.post('/', Layer.create);
 
 module.exports = router;
