@@ -11,4 +11,4 @@ develop:
     API_VERSION: v1
   command: develop
   volumes:
-    - ./app:/opt/node-skeleton/app
+    - ./app:/opt/fw-context-layer/app

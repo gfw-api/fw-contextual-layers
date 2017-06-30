@@ -1,7 +1,7 @@
 prod:
-  image: vizzuality/node-skeleton:1.0.0${STAGING}
+  image: vizzuality/fw-context-layer:1.0.0${STAGING}
   ports:
-    - "3005"
+    - "3025"
   env_file:
     - prod.env
   command: start
@@ -10,4 +10,4 @@ prod:
   log_driver: "syslog"
   log_opt:
       syslog-address: ${SYSLOG_ADDRESS}
-      tag: node-skeleton${STAGING}
+      tag: fw-context-layer${STAGING}

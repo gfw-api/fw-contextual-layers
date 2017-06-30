@@ -1,8 +1,8 @@
-FROM node:7.7-alpine
-MAINTAINER raul.requero@vizzuality.com
+FROM node:8.1-alpine
+MAINTAINER rodrigo.solis@vizzuality.com
 
-ENV NAME node-skeleton
-ENV USER node-skeleton
+ENV NAME fw-context-layer
+ENV USER fw-context-layer
 
 RUN apk update && apk upgrade && \
     apk add --no-cache --update bash git openssh python alpine-sdk
@@ -24,7 +24,7 @@ COPY ./app /opt/$NAME/app
 RUN chown $USER:$USER /opt/$NAME
 
 # Tell Docker we are going to use this ports
-EXPOSE 3005
+EXPOSE 3025
 USER $USER
 
 ENTRYPOINT ["./entrypoint.sh"]

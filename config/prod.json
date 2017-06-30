@@ -1,6 +1,6 @@
 {
     "logger": {
-        "name": "node-skeleton",
+        "name": "fw-context-layer",
         "level": "warn",
         "toFile": false,
         "dirLogFile": null

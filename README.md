@@ -1,7 +1,7 @@
-# Node Skeleton Microservice
+# FW Context Layer Microservice
 
 
-This repository is the node skeleton microservice to create node microservice for WRI API
+This repository includes the forest watcher context layers microservice for the WRI API.
 
 1. [Getting Started](#getting-started)
 
