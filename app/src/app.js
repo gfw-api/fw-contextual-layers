@@ -6,6 +6,14 @@ const loader = require('loader');
 const convert = require('koa-convert');
 const ctRegisterMicroservice = require('ct-register-microservice-node');
 const ErrorSerializer = require('serializers/error.serializer');
+const mongoose = require('mongoose');
+
+mongoose.connect(mongoUri, (err) => {
+  if (err) {
+    logger.error(err);
+    throw new Error(err);
+  }
+});
 
 const koaBody = require('koa-body')({
     multipart: true,

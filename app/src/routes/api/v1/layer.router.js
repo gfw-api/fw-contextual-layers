@@ -5,7 +5,7 @@ const router = new Router({
     prefix: '/service',
 });
 
-class Service {
+class Layer {
 
     static sayHi(ctx) {
         ctx.body = {
@@ -15,6 +15,6 @@ class Service {
 
 }
 
-router.get('/hi', Service.sayHi);
+router.get('/hi', Layer.sayHi);
 
 module.exports = router;
