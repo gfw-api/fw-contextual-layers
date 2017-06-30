@@ -1,8 +1,8 @@
 FROM node:8.1-alpine
 MAINTAINER rodrigo.solis@vizzuality.com
 
-ENV NAME fw-context-layer
-ENV USER fw-context-layer
+ENV NAME fw-contextual-layer
+ENV USER fw-contextual-layer
 
 RUN apk update && apk upgrade && \
     apk add --no-cache --update bash git openssh python alpine-sdk

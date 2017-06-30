@@ -2,7 +2,7 @@ const Router = require('koa-router');
 
 
 const router = new Router({
-    prefix: '/service',
+    prefix: '/contextual-layer',
 });
 
 class Layer {
@@ -15,6 +15,6 @@ class Layer {
 
 }
 
-router.get('/hi', Layer.sayHi);
+router.get('/', Layer.sayHi);
 
 module.exports = router;

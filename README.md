@@ -20,8 +20,8 @@ installed on your machine.
 ```
 git clone https://github.com/Vizzuality/node-skeleton
 cd node-skeleton
-./service.sh develop
-./service.sh test
+./layer.sh develop
+./layer.sh test
 ```text
 
 You can now access the microservice through the CT gateway.

@@ -1,12 +1,12 @@
 {
-	"name": "node-skeleton",
+	"name": "#(service.name)",
 	"tags": ["fw"],
 	"endpoints": [{
-		"path": "/v1/context-layer",
+		"path": "/v1/contextual-layer",
 		"method": "GET",
 		"redirect": {
 			"method": "GET",
-			"path": "/api/v1/context-layer"
+			"path": "/api/v1/contextual-layer"
 		}
 	}]
 }

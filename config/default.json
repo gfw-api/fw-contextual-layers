@@ -1,12 +1,17 @@
 {
      "logger": {
-        "name": "fw-context-layer-DEV",
+        "name": "fw-contextual-layer-DEV",
         "level": "debug",
         "toFile": false,
         "dirLogFile": null
     },
     "service": {
-        "name": "FW Context Layer",
-        "port": 3005
+        "name": "FW Contextual Layer",
+        "port": 3025
+    },
+    "mongodb": {
+      "database": "fw_contextual_layer",
+      "host": "192.168.1.54",
+      "port": 32780
     }
 }
