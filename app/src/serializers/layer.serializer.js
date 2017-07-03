@@ -3,7 +3,7 @@ const JSONAPISerializer = require('jsonapi-serializer').Serializer;
 
 const layerSerializer = new JSONAPISerializer('layer', {
   attributes: [
-    'public', 'name', 'url', 'user', 'createdAt'
+    'isPublic', 'name', 'url', 'user', 'createdAt'
   ],
   resource: {
     attributes: ['type', 'content']

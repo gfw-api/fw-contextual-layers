@@ -10,8 +10,6 @@
         "port": 3025
     },
     "mongodb": {
-      "database": "fw_contextual_layer",
-      "host": "192.168.1.54",
-      "port": 27017
+      "database": "fw_contextual_layer"
     }
 }
