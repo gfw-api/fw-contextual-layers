@@ -19,6 +19,15 @@
           "method": "POST",
           "path": "/api/v1/contextual-layer"
         }
+      },
+      {
+        "path": "/v1/contextual-layer/team/:teamId",
+        "method": "POST",
+        "authenticated": true,
+        "redirect": {
+          "method": "POST",
+          "path": "/api/v1/contextual-layer/team/:teamId"
+        }
       }
     ]
 }
