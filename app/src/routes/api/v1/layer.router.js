@@ -1,4 +1,5 @@
 const Router = require('koa-router');
+const Lodash = require('lodash');
 const logger = require('logger');
 const LayerModel = require('models/layer.model');
 const LayerSerializer = require('serializers/layer.serializer');
@@ -25,7 +26,8 @@ class Layer {
   static async create(ctx) {
     logger.info('Create layer');
     const isPublic = (ctx.request.body.role === 'ADMIN') ? ctx.request.body.isPublic : false;
-    const body = Object.assign({}, ctx.request.body, { isPublic });
+    const slug = Lodash.kebabCase(ctx.request.body.name);
+    const body = Object.assign({}, ctx.request.body, { isPublic, slug });
     const layer = await new LayerModel(body).save();
     ctx.body = LayerSerializer.serialize(layer);
   }
