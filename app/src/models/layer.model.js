@@ -7,7 +7,6 @@ const Layer = new Schema({
   url: { type: String, required: true, trim: true },
   style: { type: String, required: false },
   user: { type: String, required: true, trim: true },
-  slug: { type: String, required: true, trim: true },
   createdAt: { type: Date, required: true, default: Date.now }
 });
 
