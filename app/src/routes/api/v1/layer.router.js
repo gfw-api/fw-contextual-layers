@@ -21,21 +21,23 @@ class Layer {
   static async getAll(ctx) {
     logger.info('Get all layers');
     const userId = ctx.request.body.user.id;
+    let team = null;
     try {
-      const team = await TeamService.getTeamByUserId(userId);
+      team = await TeamService.getTeamByUserId(userId);
     } catch (e) {
       logger.error(e);
       ctx.throw(500, 'Error while retrieving user team');
     }
+    const teamLayers = team && Array.isArray(team.layers) ? team.layers : [];
     const layers = await LayerModel.find({
         $or: [
           { isPublic: true },
           { 'owner.id': userId },
-          { id: { $in: team.layers || [] } }
+          { id: { $in: teamLayers } }
         ]
     }, { owner: 0 });
 
-    ctx.body = team; // LayerSerializer.serialize(layers);
+    ctx.body = LayerSerializer.serialize(layers);
   }
 
   static async createUserLayer(ctx) {
