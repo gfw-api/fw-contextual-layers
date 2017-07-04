@@ -1,11 +1,33 @@
 {
-	"name": "node-skeleton",
-	"endpoints": [{
-		"path": "/v1/service/hi",
+	"name": "fw-contextual-layer",
+	"tags": ["fw"],
+	"endpoints": [
+      {
+		"path": "/v1/contextual-layer",
 		"method": "GET",
+        "authenticated": true,
 		"redirect": {
 			"method": "GET",
-			"path": "/api/v1/service/hi"
+			"path": "/api/v1/contextual-layer"
 		}
-	}]
+      },
+      {
+        "path": "/v1/contextual-layer",
+        "method": "POST",
+        "authenticated": true,
+        "redirect": {
+          "method": "POST",
+          "path": "/api/v1/contextual-layer"
+        }
+      },
+      {
+        "path": "/v1/contextual-layer/team/:teamId",
+        "method": "POST",
+        "authenticated": true,
+        "redirect": {
+          "method": "POST",
+          "path": "/api/v1/contextual-layer/team/:teamId"
+        }
+      }
+    ]
 }

@@ -19,7 +19,7 @@ case "$1" in
         docker-compose -f docker-compose-test.yml build && docker-compose -f docker-compose-test.yml up
         ;;
   *)
-        echo "Usage: service.sh {test-e2e|test-unit|start|develop|test}" >&2
+        echo "Usage: layer.sh {test-e2e|test-unit|start|develop|test}" >&2
         exit 1
         ;;
 esac

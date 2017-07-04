@@ -1,12 +1,15 @@
 {
      "logger": {
-        "name": "node-skeleton-DEV",
+        "name": "fw-contextual-layer-DEV",
         "level": "debug",
         "toFile": false,
         "dirLogFile": null
     },
     "service": {
-        "name": "Node Skeleton",
-        "port": 3005
+        "name": "FW Contextual Layer",
+        "port": 3025
+    },
+    "mongodb": {
+      "database": "fw_contextual_layer"
     }
 }

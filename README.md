@@ -1,7 +1,7 @@
-# Node Skeleton Microservice
+# FW Context Layer Microservice
 
 
-This repository is the node skeleton microservice to create node microservice for WRI API
+This repository includes the forest watcher context layers microservice for the WRI API.
 
 1. [Getting Started](#getting-started)
 
@@ -20,8 +20,8 @@ installed on your machine.
 ```
 git clone https://github.com/Vizzuality/node-skeleton
 cd node-skeleton
-./service.sh develop
-./service.sh test
+./layer.sh develop
+./layer.sh test
 ```text
 
 You can now access the microservice through the CT gateway.
