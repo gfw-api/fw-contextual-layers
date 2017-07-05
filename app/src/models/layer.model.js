@@ -7,7 +7,7 @@ const Layer = new Schema({
   url: { type: String, required: true, trim: true },
   style: { type: String, required: false },
   owner: {
-    id: { type: String, required: true, trim: true },
+    id: { type: Schema.Types.ObjectId, required: true, trim: true },
     type: { type: String, required: true, trim: true }
     },
   createdAt: { type: Date, required: true, default: Date.now }
