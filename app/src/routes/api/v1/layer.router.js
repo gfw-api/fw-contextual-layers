@@ -83,10 +83,39 @@ class Layer {
       ctx.throw(403, 'Only team managers can create team layers.');
     }
   }
+
+  static async patchLayer(ctx) {
+    logger.info('Patch layer by id');
+    const layerId = ctx.params.layerId;
+    const body = ctx.request.body;
+    let layer = null;
+    try {
+      layer = await LayerModel.findOne({ id: layerId });
+      if (!layer) ctx.throw(404, 'Layer not found');
+    } catch (e) {
+      logger.error(e);
+      ctx.throw(500, 'Layer retrieval failed.');
+    }
+    let team = null;
+    if (layer.owner.type === LayerService.type.TEAM) {
+      try {
+        team = await TeamService.getTeam(layer.owner.id);
+      } catch (e) {
+        logger.error(e);
+        ctx.throw(500, 'Team retrieval failed');
+      }
+    }
+    const disabled = LayerService.getDisabled(body, team);
+    const isPublic = LayerService.updateIsPublic(layer, body);
+    layer = Object.assign(layer, body, { isPublic, disabled });
+    await layer.save();
+    ctx.body = LayerSerializer(layer);
+  }
 }
 
 router.get('/', ...Layer.middleware, Layer.getAll);
 router.post('/', ...Layer.middleware, LayerValidator.create,  Layer.createUserLayer);
+router.patch('/:layerId', ...Layer.middleware, LayerValidator.patch, Layer.patchLayer);
 router.post('/team/:teamId', ...Layer.middleware, LayerValidator.create, Layer.createTeamLayer);
 
 module.exports = router;

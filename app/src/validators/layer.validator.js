@@ -8,6 +8,7 @@ class LayerValidator {
     ctx.checkBody('url').notEmpty().isUrl();
     ctx.checkBody('style').optional().notEmpty();
     ctx.checkBody('isPublic').optional();
+    ctx.checkBody('disabled').optional().isBoolean();
 
     if (ctx.errors) {
       ctx.body = ErrorSerializer.serializeValidationBodyErrors(ctx.errors);
