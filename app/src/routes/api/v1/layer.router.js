@@ -90,7 +90,7 @@ class Layer {
     const body = ctx.request.body;
     let layer = null;
     try {
-      layer = await LayerModel.findOne({ id: layerId });
+      layer = await LayerModel.findOne({ _id: layerId });
       if (!layer) ctx.throw(404, 'Layer not found');
     } catch (e) {
       logger.error(e);
@@ -105,11 +105,11 @@ class Layer {
         ctx.throw(500, 'Team retrieval failed');
       }
     }
-    const disabled = LayerService.getDisabled(body, team);
+    const enabled = LayerService.getEnabled(layer, body, team);
     const isPublic = LayerService.updateIsPublic(layer, body);
-    layer = Object.assign(layer, body, { isPublic, disabled });
+    layer = Object.assign(layer, body, { isPublic, enabled });
     await layer.save();
-    ctx.body = LayerSerializer(layer);
+    ctx.body = LayerSerializer.serialize(layer);
   }
 }
 

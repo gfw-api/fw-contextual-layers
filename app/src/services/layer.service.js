@@ -17,8 +17,8 @@ class LayerService {
     return (data.user.role === 'ADMIN') && (layer.owner.type === LayerService.type.USER) ? data.isPublic : layer.isPublic;
   }
 
-  static getDisabled(data, team) {
-    return !team || team.managers.includes(data.user.id) ? data.isPublic : data.disabled;
+  static getEnabled(layer, data, team) {
+    return (!team || team.managers.includes(data.user.id)) ? data.enabled : layer.enabled;
   }
 
   static create(data, owner) {

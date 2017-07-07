@@ -10,7 +10,7 @@ const Layer = new Schema({
     id: { type: Schema.Types.ObjectId, required: true, trim: true },
     type: { type: String, required: true, trim: true }
     },
-  disabled: { type: Boolean, required: true, default: false },
+  enabled: { type: Boolean, required: true, default: false },
   createdAt: { type: Date, required: true, default: Date.now }
 });
 
