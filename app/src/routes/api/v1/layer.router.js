@@ -102,13 +102,19 @@ class Layer {
         team = await TeamService.getTeam(layer.owner.id);
       } catch (e) {
         logger.error(e);
-        ctx.throw(500, 'Team retrieval failed');
+        ctx.throw(500, 'Team retrieval failed.');
       }
     }
     const enabled = LayerService.getEnabled(layer, body, team);
     const isPublic = LayerService.updateIsPublic(layer, body);
     layer = Object.assign(layer, body, { isPublic, enabled });
-    await layer.save();
+    try {
+      await layer.save();
+    } catch (e) {
+      logger.error(e);
+      ctx.throw(500, 'Layer update failed.');
+    }
+
     ctx.body = LayerSerializer.serialize(layer);
   }
 }
