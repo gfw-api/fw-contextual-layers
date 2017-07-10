@@ -28,6 +28,15 @@
           "method": "POST",
           "path": "/api/v1/contextual-layer/team/:teamId"
         }
+      },
+      {
+        "path": "/v1/contextual-layer/:layerId",
+        "method": "PATCH",
+        "authenticated": true,
+        "redirect": {
+          "method": "PATCH",
+          "path": "/api/v1/contextual-layer/:layerId"
+        }
       }
     ]
 }
