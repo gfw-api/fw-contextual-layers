@@ -22,7 +22,7 @@ class Layer {
     logger.info('Get all layers');
     const userId = ctx.request.body.user.id;
     const enabled = typeof ctx.request.query.enabled !== 'undefined' ?
-      { enabled: !!JSON.parse(ctx.request.query.enabled) }
+      { enabled: ctx.request.query.enabled }
       : null;
     let team = null;
     try {
@@ -128,7 +128,7 @@ class Layer {
   }
 }
 
-router.get('/', ...Layer.middleware, Layer.getAll);
+router.get('/', ...Layer.middleware, LayerValidator.getAll, Layer.getAll);
 router.post('/', ...Layer.middleware, LayerValidator.create,  Layer.createUserLayer);
 router.patch('/:layerId', ...Layer.middleware, LayerValidator.patch, Layer.patchLayer);
 router.post('/team/:teamId', ...Layer.middleware, LayerValidator.create, Layer.createTeamLayer);
