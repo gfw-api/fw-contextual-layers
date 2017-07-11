@@ -21,6 +21,9 @@ class Layer {
   static async getAll(ctx) {
     logger.info('Get all layers');
     const userId = ctx.request.body.user.id;
+    const enabled = typeof ctx.request.query.enabled !== 'undefined' ?
+      { enabled: !!JSON.parse(ctx.request.query.enabled) }
+      : null;
     let team = null;
     try {
       team = await TeamService.getTeamByUserId(userId);
@@ -29,13 +32,19 @@ class Layer {
       ctx.throw(500, 'Error while retrieving user team');
     }
     const teamLayers = team && Array.isArray(team.layers) ? team.layers : [];
-    const layers = await LayerModel.find({
-        $or: [
-          { isPublic: true },
-          { 'owner.id': userId },
-          { id: { $in: teamLayers } }
-        ]
-    }, { owner: 0 });
+    const query = {
+      $and: [
+        {
+          $or: [
+            { isPublic: true },
+            { 'owner.id': userId },
+            { id: { $in: teamLayers } }
+          ]
+        }
+      ]
+    };
+    if (enabled) query.$and.push(enabled);
+    const layers = await LayerModel.find(query, { owner: 0 });
 
     ctx.body = LayerSerializer.serialize(layers);
   }
