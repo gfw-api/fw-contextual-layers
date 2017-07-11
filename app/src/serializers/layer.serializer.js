@@ -2,7 +2,7 @@ const logger = require('logger');
 const JSONAPISerializer = require('jsonapi-serializer').Serializer;
 
 const layerSerializer = new JSONAPISerializer('contextual-layer', {
-  attributes: ['isPublic', 'name', 'url', 'style', 'owner', 'createdAt'],
+  attributes: ['isPublic', 'name', 'url', 'style', 'enabled', 'owner', 'createdAt'],
   resource: {
     attributes: ['type', 'content']
   },

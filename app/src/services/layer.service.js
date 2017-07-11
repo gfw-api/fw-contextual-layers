@@ -9,8 +9,20 @@ class LayerService {
     };
   }
 
+  static setIsPublic(data, owner) {
+    return (data.user.role === 'ADMIN') && (owner.type === LayerService.type.USER) ? data.isPublic : false;
+  }
+
+  static updateIsPublic(layer, data) {
+    return (data.user.role === 'ADMIN') && (layer.owner.type === LayerService.type.USER) ? data.isPublic : layer.isPublic;
+  }
+
+  static getEnabled(layer, data, team) {
+    return (!team || team.managers.includes(data.user.id)) ? data.enabled : layer.enabled;
+  }
+
   static create(data, owner) {
-    const isPublic = (data.user.role === 'ADMIN') && (owner.type === 'USER') ? data.isPublic : false;
+    const isPublic = LayerService.setIsPublic(data, owner);
     const body = Object.assign({}, data, { isPublic, owner });
     return new LayerModel(body).save();
   }
