@@ -1,7 +1,7 @@
 prod:
   image: vizzuality/fw-contextual-layer:1.0.0${STAGING}
   ports:
-    - "3025:3025"
+    - "3025"
   env_file:
     - prod.env
   command: start
