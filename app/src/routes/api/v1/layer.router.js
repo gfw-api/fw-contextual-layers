@@ -126,11 +126,46 @@ class Layer {
 
     ctx.body = LayerSerializer.serialize(layer);
   }
+
+  static async deleteLayer(ctx) {
+    const layerId = ctx.params.layerId;
+    logger.info(`Delete layer with id ${layerId}`);
+    let layer = null;
+    try {
+      layer = await LayerModel.findOne({ _id: layerId });
+      if (!layer) ctx.throw(404, 'Layer not found');
+    } catch (e) {
+      logger.error(e);
+      ctx.throw(500, 'Layer retrieval failed.');
+    }
+    let team = null;
+    if (layer.owner.type === LayerService.type.TEAM) {
+      try {
+        team = await TeamService.getTeam(layer.owner.id);
+      } catch (e) {
+        logger.error(e);
+        ctx.throw(500, 'Team retrieval failed.');
+      }
+    }
+    const hasPermission = LayerService.canDeleteLayer(layer, ctx.request.body.user, team);
+    if (hasPermission) {
+      try {
+        await LayerModel.remove({ _id: layerId });
+      } catch (e) {
+        logger.error(e);
+        ctx.throw(500, 'Layer deletion failed.');
+      }
+    } else {
+      ctx.throw(403, 'Forbidden');
+    }
+    ctx.body= '';
+    ctx.statusCode = 204;
+  }
 }
 
 router.get('/', ...Layer.middleware, LayerValidator.getAll, Layer.getAll);
 router.post('/', ...Layer.middleware, LayerValidator.create,  Layer.createUserLayer);
 router.patch('/:layerId', ...Layer.middleware, LayerValidator.patch, Layer.patchLayer);
 router.post('/team/:teamId', ...Layer.middleware, LayerValidator.create, Layer.createTeamLayer);
-
+router.delete('/:layerId', ...Layer.middleware, Layer.deleteLayer);
 module.exports = router;
