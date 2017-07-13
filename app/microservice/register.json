@@ -37,6 +37,15 @@
           "method": "PATCH",
           "path": "/api/v1/contextual-layer/:layerId"
         }
+      },
+      {
+        "path": "/v1/contextual-layer/:layerId",
+        "method": "DELETE",
+        "authenticated": true,
+        "redirect": {
+          "method": "DELETE",
+          "path": "/api/v1/contextual-layer/:layerId"
+        }
       }
     ]
 }

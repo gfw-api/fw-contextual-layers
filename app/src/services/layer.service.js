@@ -26,5 +26,16 @@ class LayerService {
     const body = Object.assign({}, data, { isPublic, owner });
     return new LayerModel(body).save();
   }
+
+  static canDeleteLayer(layer, user, team) {
+    if (user.role === 'ADMIN') return true;
+    if (layer.isPublic) return false;
+    switch (layer.owner.type) {
+      case LayerService.type.USER:
+        return layer.owner.id.toString() === user.id;
+      case LayerService.type.TEAM:
+        return team.managers.includes(user.id);
+    }
+  }
 }
 module.exports = LayerService;
