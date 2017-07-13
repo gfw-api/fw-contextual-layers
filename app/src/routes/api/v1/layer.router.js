@@ -38,7 +38,7 @@ class Layer {
           $or: [
             { isPublic: true },
             { 'owner.id': userId },
-            { id: { $in: teamLayers } }
+            { _id: { $in: teamLayers } }
           ]
         }
       ]
