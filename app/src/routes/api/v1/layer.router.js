@@ -44,7 +44,7 @@ class Layer {
       ]
     };
     if (enabled) query.$and.push(enabled);
-    const layers = await LayerModel.find(query, { owner: 0 });
+    const layers = await LayerModel.find(query, { 'owner.id': 0 });
 
     ctx.body = LayerSerializer.serialize(layers);
   }
