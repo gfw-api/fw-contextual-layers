@@ -5,7 +5,7 @@ const Layer = new Schema({
   isPublic: { type: Boolean, required: true, default: false },
   name: { type: String, required: true, trim: true },
   url: { type: String, required: true, trim: true },
-  style: { type: String, required: false },
+  description: { type: String, required: false },
   owner: {
     id: { type: Schema.Types.ObjectId, required: true, trim: true },
     type: { type: String, required: true, trim: true }
