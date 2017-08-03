@@ -17,7 +17,7 @@ class LayerValidator {
   static async create(ctx, next) {
     ctx.checkBody('name').notEmpty().len(1, 200);
     ctx.checkBody('url').notEmpty().isUrl();
-    ctx.checkBody('style').optional().notEmpty();
+    ctx.checkBody('description').optional().notEmpty();
     ctx.checkBody('isPublic').optional().notEmpty();
     ctx.checkBody('enabled').optional().notEmpty();
 
@@ -32,7 +32,7 @@ class LayerValidator {
   static async patch(ctx, next) {
     ctx.checkBody('name').optional().notEmpty().len(1, 200);
     ctx.checkBody('url').optional().notEmpty().isUrl();
-    ctx.checkBody('style').optional().notEmpty();
+    ctx.checkBody('description').optional().notEmpty();
     ctx.checkBody('isPublic').optional().notEmpty();
     ctx.checkBody('enabled').optional().notEmpty();
 
