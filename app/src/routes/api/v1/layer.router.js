@@ -178,5 +178,5 @@ router.post('/', ...Layer.middleware, LayerValidator.create,  Layer.createUserLa
 router.patch('/:layerId', ...Layer.middleware, LayerValidator.patch, Layer.patchLayer);
 router.post('/team/:teamId', ...Layer.middleware, LayerValidator.create, Layer.createTeamLayer);
 router.delete('/:layerId', ...Layer.middleware, Layer.deleteLayer);
-router.get('/loss-layer/:startYear/:endYear/:z/:x/:y', LayerValidator.tile, Layer.hansenLayer);
+router.get('/loss-layer/:startYear/:endYear/:z/:x/:y.png', LayerValidator.tile, Layer.hansenLayer);
 module.exports = router;
