@@ -17,8 +17,8 @@ class LossLayerProvider {
     });
   }
 
-  getTile(z, x, y) {
-    return this.protocol.getImageTile({z, x, y})
+  getTile(options) {
+    return this.protocol.getImageTile(options)
   }
 }
 

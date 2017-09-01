@@ -43,7 +43,8 @@ class LayerValidator {
     ctx.checkParams('x').isNumeric();
     ctx.checkParams('y').isNumeric();
     ctx.checkParams('z').isNumeric();
-
+    ctx.checkParams('startYear').isInt().toInt();
+    ctx.checkParams('endYear').isInt().toInt();
     LayerValidator.checkForErrors(ctx);
     await next();
   }

@@ -164,10 +164,10 @@ class Layer {
   }
 
   static async hansenLayer(ctx) {
-    const { x, y, z } = ctx.params;
-    logger.info(`Retrieving hansen tile: /${z}/${x}/${y}`);
+    const { x, y, z, startYear, endYear } = ctx.params;
+    logger.info(`Retrieving hansen tile: /${startYear}/${endYear}/${z}/${x}/${y}`);
     let data;
-    data = await hansenProvider.getTile(z, x, y);
+    data = await hansenProvider.getTile({ z, x, y, startYear, endYear });
     ctx.body = data;
   }
 }
@@ -177,5 +177,5 @@ router.post('/', ...Layer.middleware, LayerValidator.create,  Layer.createUserLa
 router.patch('/:layerId', ...Layer.middleware, LayerValidator.patch, Layer.patchLayer);
 router.post('/team/:teamId', ...Layer.middleware, LayerValidator.create, Layer.createTeamLayer);
 router.delete('/:layerId', ...Layer.middleware, Layer.deleteLayer);
-router.get('/hansen-layer/:z/:x/:y', LayerValidator.tile, Layer.hansenLayer);
+router.get('/loss-layer/:startYear/:endYear/:z/:x/:y', LayerValidator.tile, Layer.hansenLayer);
 module.exports = router;
