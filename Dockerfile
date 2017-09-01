@@ -1,13 +1,16 @@
-FROM node:8.1-alpine
+FROM node:8.1
 MAINTAINER rodrigo.solis@vizzuality.com
 
 ENV NAME fw-contextual-layer
 ENV USER fw-contextual-layer
 
-RUN apk update && apk upgrade && \
-    apk add --no-cache --update bash git openssh python alpine-sdk
+RUN apt-get update -y && apt-get upgrade -y
 
-RUN addgroup $USER && adduser -s /bin/bash -D -G $USER $USER
+RUN apt-get install -y --no-install-recommends bash git openssh-client openssh-server python
+
+RUN apt-get install -y libcairo2-dev libjpeg62-turbo-dev libpango1.0-dev libgif-dev build-essential g++
+
+RUN groupadd $USER && useradd -g $USER $USER
 
 RUN npm install -g grunt-cli bunyan
 
@@ -23,7 +26,7 @@ WORKDIR /opt/$NAME
 COPY ./app /opt/$NAME/app
 RUN chown $USER:$USER /opt/$NAME
 
-# Tell Docker we are going to use this ports
+# Tell Docker we are going to use this port
 EXPOSE 3025
 USER $USER
 
