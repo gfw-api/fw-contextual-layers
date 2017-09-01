@@ -168,6 +168,7 @@ class Layer {
     logger.info(`Retrieving hansen tile: /${startYear}/${endYear}/${z}/${x}/${y}`);
     let data;
     data = await lossLayerProvider.getTile({ z, x, y, startYear, endYear });
+    ctx.type = 'image/png';
     ctx.body = data;
   }
 }

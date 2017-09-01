@@ -80,7 +80,7 @@ class LossLayerProtocol {
       const srcW = (256 / Math.pow(2, zsteps)) | 0;
       const srcH = (256 / Math.pow(2, zsteps)) | 0;
 
-      ctx.drawImage(image, srcX, srcY, srcW, srcH);
+      ctx.drawImage(image, 0, 0, image.width, image.height);
     }
 
     const I = ctx.getImageData(0, 0, canvas.width, canvas.height);
