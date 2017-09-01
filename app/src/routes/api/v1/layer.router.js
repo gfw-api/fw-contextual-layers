@@ -6,7 +6,7 @@ const UserMiddleware = require('middleware/user.middleware');
 const LayerService = require('services/layer.service');
 const LayerValidator = require('validators/layer.validator');
 const TeamService = require('services/team.service');
-const hansenProvider = require('lossLayer.provider');
+const lossLayerProvider = require('lossLayer.provider');
 
 const router = new Router({
     prefix: '/contextual-layer',
@@ -167,7 +167,7 @@ class Layer {
     const { x, y, z, startYear, endYear } = ctx.params;
     logger.info(`Retrieving hansen tile: /${startYear}/${endYear}/${z}/${x}/${y}`);
     let data;
-    data = await hansenProvider.getTile({ z, x, y, startYear, endYear });
+    data = await lossLayerProvider.getTile({ z, x, y, startYear, endYear });
     ctx.body = data;
   }
 }

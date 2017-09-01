@@ -41,6 +41,7 @@ app.use(async (ctx, next) => {
             logger.error('Error parse');
         }
         ctx.status = error.status || 500;
+        logger.error(error);
         ctx.body = ErrorSerializer.serializeError(ctx.status, error.message);
         if (process.env.NODE_ENV === 'prod' && this.status === 500) {
             ctx.body = 'Unexpected error';
