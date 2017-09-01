@@ -6,6 +6,7 @@ const UserMiddleware = require('middleware/user.middleware');
 const LayerService = require('services/layer.service');
 const LayerValidator = require('validators/layer.validator');
 const TeamService = require('services/team.service');
+const hansenProvider = require('lossLayer.provider');
 
 const router = new Router({
     prefix: '/contextual-layer',
@@ -161,6 +162,14 @@ class Layer {
     ctx.body= '';
     ctx.statusCode = 204;
   }
+
+  static async hansenLayer(ctx) {
+    const { x, y, z } = ctx.params;
+    logger.info(`Retrieving hansen tile: /${z}/${x}/${y}`);
+    let data;
+    data = await hansenProvider.getTile(z, x, y);
+    ctx.body = data;
+  }
 }
 
 router.get('/', ...Layer.middleware, LayerValidator.getAll, Layer.getAll);
@@ -168,4 +177,5 @@ router.post('/', ...Layer.middleware, LayerValidator.create,  Layer.createUserLa
 router.patch('/:layerId', ...Layer.middleware, LayerValidator.patch, Layer.patchLayer);
 router.post('/team/:teamId', ...Layer.middleware, LayerValidator.create, Layer.createTeamLayer);
 router.delete('/:layerId', ...Layer.middleware, Layer.deleteLayer);
+router.get('/hansen-layer/:z/:x/:y', LayerValidator.tile, Layer.hansenLayer);
 module.exports = router;

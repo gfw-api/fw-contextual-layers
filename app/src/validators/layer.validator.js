@@ -3,14 +3,17 @@ const ErrorSerializer = require('serializers/error.serializer');
 
 class LayerValidator {
 
-  static async getAll(ctx, next) {
-    ctx.checkQuery('enabled').optional().toBoolean();
-
+  static checkForErrors(ctx) {
     if (ctx.errors) {
       ctx.body = ErrorSerializer.serializeValidationBodyErrors(ctx.errors);
       ctx.status = 400;
-      return;
     }
+  }
+
+  static async getAll(ctx, next) {
+    ctx.checkQuery('enabled').optional().toBoolean();
+
+    LayerValidator.checkForErrors(ctx);
     await next();
   }
 
@@ -21,11 +24,7 @@ class LayerValidator {
     ctx.checkBody('isPublic').optional().notEmpty();
     ctx.checkBody('enabled').optional().notEmpty();
 
-    if (ctx.errors) {
-      ctx.body = ErrorSerializer.serializeValidationBodyErrors(ctx.errors);
-      ctx.status = 400;
-      return;
-    }
+    LayerValidator.checkForErrors(ctx);
     await next();
   }
 
@@ -36,11 +35,16 @@ class LayerValidator {
     ctx.checkBody('isPublic').optional().notEmpty();
     ctx.checkBody('enabled').optional().notEmpty();
 
-    if (ctx.errors) {
-      ctx.body = ErrorSerializer.serializeValidationBodyErrors(ctx.errors);
-      ctx.status = 400;
-      return;
-    }
+    LayerValidator.checkForErrors(ctx);
+    await next();
+  }
+
+  static async tile(ctx, next) {
+    ctx.checkParams('x').isNumeric();
+    ctx.checkParams('y').isNumeric();
+    ctx.checkParams('z').isNumeric();
+
+    LayerValidator.checkForErrors(ctx);
     await next();
   }
 }

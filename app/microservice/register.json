@@ -41,10 +41,17 @@
       {
         "path": "/v1/contextual-layer/:layerId",
         "method": "DELETE",
-        "authenticated": true,
         "redirect": {
           "method": "DELETE",
           "path": "/api/v1/contextual-layer/:layerId"
+        }
+      },
+      {
+        "path": "/v1/contextual-layer/hansen-layer/:z/:x/:y",
+        "method": "GET",
+        "redirect": {
+          "method": "GET",
+          "path": "/api/v1/contextual-layer/hansen-layer/:z/:x/:y"
         }
       }
     ]
