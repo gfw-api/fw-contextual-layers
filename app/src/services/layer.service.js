@@ -18,7 +18,7 @@ class LayerService {
   }
 
   static getEnabled(layer, data, team) {
-    return (!team || team.managers.includes(data.user.id)) ? data.enabled : layer.enabled;
+    return (!team || team.managers.some(manager => manager.id === data.user.id)) ? data.enabled : layer.enabled;
   }
 
   static create(data, owner) {
