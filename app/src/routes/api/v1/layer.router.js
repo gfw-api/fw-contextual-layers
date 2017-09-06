@@ -72,7 +72,8 @@ class Layer {
       logger.error(e);
       ctx.throw(500, 'Team retrieval failed.');
     }
-    if (team && team.managers && team.managers.includes(ctx.request.body.user.id)) {
+    const isManager = team && team.managers && team.managers.some(manager => manager.id === ctx.request.body.user.id);
+    if (isManager) {
       let layer = null;
       try {
         layer = await LayerService.create(ctx.request.body, owner);
