@@ -46,6 +46,14 @@
           "method": "DELETE",
           "path": "/api/v1/contextual-layer/:layerId"
         }
+      },
+      {
+        "path": "/v1/contextual-layer/loss-layer/:startYear/:endYear/:z/:x/:y.png",
+        "method": "GET",
+        "redirect": {
+          "method": "GET",
+          "path": "/api/v1/contextual-layer/loss-layer/:startYear/:endYear/:z/:x/:y.png"
+        }
       }
     ]
 }
