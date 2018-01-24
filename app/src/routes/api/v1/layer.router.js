@@ -73,7 +73,8 @@ class Layer {
       logger.error(e);
       ctx.throw(500, 'Team retrieval failed.');
     }
-    if (team && team.managers && team.managers.includes(ctx.request.body.user.id)) {
+    const isManager = team && team.managers && team.managers.some(manager => manager.id === ctx.request.body.user.id);
+    if (isManager) {
       let layer = null;
       try {
         layer = await LayerService.create(ctx.request.body, owner);
@@ -178,5 +179,5 @@ router.post('/', ...Layer.middleware, LayerValidator.create,  Layer.createUserLa
 router.patch('/:layerId', ...Layer.middleware, LayerValidator.patch, Layer.patchLayer);
 router.post('/team/:teamId', ...Layer.middleware, LayerValidator.create, Layer.createTeamLayer);
 router.delete('/:layerId', ...Layer.middleware, Layer.deleteLayer);
-router.get('/loss-layer/:startYear/:endYear/:z/:x/:y', LayerValidator.tile, Layer.hansenLayer);
+router.get('/loss-layer/:startYear/:endYear/:z/:x/:y.png', LayerValidator.tile, Layer.hansenLayer);
 module.exports = router;
