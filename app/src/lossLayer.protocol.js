@@ -18,7 +18,7 @@ class LossLayerProtocol {
   }
 
   static async getTile(z, x, y) {
-    const TILE_URL = `https://storage.googleapis.com/wri-public/Hansen15/tiles/hansen_world/v1/tc30/${z}/${x}/${y}.png`;
+    const TILE_URL = `https://storage.googleapis.com/wri-public/Hansen_16/tiles/hansen_world/v1/tc30/${z}/${x}/${y}.png`;
     return await request({
       uri: TILE_URL,
       method: 'GET',
