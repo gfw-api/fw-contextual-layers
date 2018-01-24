@@ -12,7 +12,7 @@ RUN apt-get install -y libcairo2-dev libjpeg62-turbo-dev libpango1.0-dev libgif-
 
 RUN groupadd $USER && useradd -g $USER $USER
 
-RUN npm install -g grunt-cli bunyan
+RUN npm install --unsafe-perm -g bunyan  grunt-cli
 
 RUN mkdir -p /opt/$NAME
 COPY package.json /opt/$NAME/package.json
