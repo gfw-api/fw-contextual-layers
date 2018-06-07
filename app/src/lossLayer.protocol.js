@@ -2,6 +2,7 @@ const logger = require('./logger');
 const request = require('request-promise');
 const d3 = require('d3');
 const Canvas = require('canvas');
+const TileNotFound = require('TileNotFoundError');
 
 const Image = Canvas.Image;
 
@@ -19,11 +20,18 @@ class LossLayerProtocol {
 
   static async getTile(z, x, y) {
     const TILE_URL = `https://storage.googleapis.com/wri-public/Hansen_16/tiles/hansen_world/v1/tc30/${z}/${x}/${y}.png`;
-    return await request({
-      uri: TILE_URL,
-      method: 'GET',
-      encoding: null
-    });
+    try {
+      return await request({
+        uri: TILE_URL,
+        method: 'GET',
+        encoding: null
+      });
+    } catch (e) {
+      logger.error('Tile not found', e);
+      if (e.statusCode === 404) {
+        throw new TileNotFound(e.message);
+      }
+    }
   }
 
   static filterImgData(data, { w, h, z, startYear, endYear }) {
@@ -61,6 +69,7 @@ class LossLayerProtocol {
     const ctx = canvas.getContext('2d');
     const zsteps = z - 12;
     const tile = await LossLayerProtocol.getTile(z, x, y);
+
     const image = new Image();
     image.src = tile;
     // this will allow us to sum up the dots when the timeline is running
@@ -75,12 +84,12 @@ class LossLayerProtocol {
       ctx.mozImageSmoothingEnabled = false;
 
       // tile scaling
-      const srcX = (256 / Math.pow(2, zsteps) * (canvasData.x % Math.pow(2, zsteps))) | 0;
-      const srcY = (256 / Math.pow(2, zsteps) * (canvasData.y % Math.pow(2, zsteps))) | 0;
+      const srcX = (256 / Math.pow(2, zsteps) * (x % Math.pow(2, zsteps))) | 0;
+      const srcY = (256 / Math.pow(2, zsteps) * (y % Math.pow(2, zsteps))) | 0;
       const srcW = (256 / Math.pow(2, zsteps)) | 0;
       const srcH = (256 / Math.pow(2, zsteps)) | 0;
 
-      ctx.drawImage(image, 0, 0, image.width, image.height);
+      ctx.drawImage(image, srcX, srcY, srcW, srcH, 0, 0, 256, 256);
     }
 
     const I = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -96,8 +105,9 @@ class LossLayerProtocol {
   }
 
   async getImageTile({ z, x, y, startYear, endYear }, format = 'image/png') {
-    const canvasTile = await this.getCanvasTile({ z, x, y, startYear, endYear });
-    const imageString = canvasTile.toDataURL(format);
+    let canvasTile, imageString;
+    canvasTile = await this.getCanvasTile({ z, x, y, startYear, endYear });
+    imageString = canvasTile.toDataURL(format);
     return new Buffer(imageString.split(',')[1], 'base64');
   }
 }
