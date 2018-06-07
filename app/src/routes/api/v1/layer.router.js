@@ -7,6 +7,7 @@ const LayerService = require('services/layer.service');
 const LayerValidator = require('validators/layer.validator');
 const TeamService = require('services/team.service');
 const lossLayerProvider = require('lossLayer.provider');
+const TileNotFoundError = require('TileNotFoundError');
 
 const router = new Router({
     prefix: '/contextual-layer',
@@ -122,7 +123,7 @@ class Layer {
     try {
       await layer.save();
     } catch (e) {
-      logger.error(e);
+      logger.error('Layer patch save failed', e);
       ctx.throw(500, 'Layer update failed.');
     }
 
@@ -168,7 +169,13 @@ class Layer {
     const { x, y, z, startYear, endYear } = ctx.params;
     logger.info(`Retrieving hansen tile: /${startYear}/${endYear}/${z}/${x}/${y}`);
     let data;
-    data = await lossLayerProvider.getTile({ z, x, y, startYear, endYear });
+    try {
+      data = await lossLayerProvider.getTile({ z, x, y, startYear, endYear });
+    } catch (e) {
+      if (e instanceof TileNotFoundError) {
+        ctx.throw(404, 'Tile not found');
+      }
+    }
     ctx.type = 'image/png';
     ctx.body = data;
   }

@@ -2,6 +2,7 @@ const logger = require('./logger');
 const request = require('request-promise');
 const d3 = require('d3');
 const Canvas = require('canvas');
+const TileNotFound = require('TileNotFoundError');
 
 const Image = Canvas.Image;
 
@@ -26,7 +27,10 @@ class LossLayerProtocol {
         encoding: null
       });
     } catch (e) {
-      logger.error('kill me', e);
+      logger.error('Tile not found', e);
+      if (e.statusCode === 404) {
+        throw new TileNotFound(e.message);
+      }
     }
   }
 
