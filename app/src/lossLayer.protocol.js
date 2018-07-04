@@ -1,4 +1,5 @@
 const logger = require('./logger');
+const config = require('config');
 const request = require('request-promise');
 const d3 = require('d3');
 const Canvas = require('canvas');
@@ -19,7 +20,7 @@ class LossLayerProtocol {
   }
 
   static async getTile(z, x, y) {
-    const TILE_URL = `https://storage.googleapis.com/wri-public/Hansen_16/tiles/hansen_world/v1/tc30/${z}/${x}/${y}.png`;
+    const TILE_URL = config.get('hansenUrl').replace('{z}', z).replace('{x}', x).replace('{y}', y);
     try {
       return await request({
         uri: TILE_URL,
