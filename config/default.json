@@ -11,5 +11,6 @@
     },
     "mongodb": {
       "database": "fw_contextual_layer"
-    }
+    },
+    "hansenUrl": "https://storage.googleapis.com/wri-public/Hansen17/tiles/hansen_world/v1/tc30/{z}/{x}/{y}.png"
 }

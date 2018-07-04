@@ -1,9 +1,10 @@
 const logger = require('./logger');
 const tilelive = require('@mapbox/tilelive');
+const config = require('config');
 const HansenProtocol = require('./lossLayer.protocol');
 
 HansenProtocol.registerProtocols(tilelive);
-const url = 'https://storage.googleapis.com/wri-public/Hansen17/tiles/hansen_world/v1/tc30/{z}/{x}/{y}.png';
+const url = config.get('hansenUrl');
 
 class LossLayerProvider {
 
