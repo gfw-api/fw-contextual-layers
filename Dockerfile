@@ -1,4 +1,4 @@
-FROM node:8.1
+FROM node:8.16-jessie
 MAINTAINER rodrigo.solis@vizzuality.com
 
 ENV NAME fw-contextual-layer
