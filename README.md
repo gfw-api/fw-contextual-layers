@@ -1,5 +1,7 @@
 # FW Context Layer Microservice
 
+[![Build Status](https://travis-ci.org/gfw-api/fw-contextual-layers.svg?branch=develop)](https://travis-ci.org/gfw-api/fw-contextual-layers)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/c1954d5df380ff14aae1/test_coverage)](https://codeclimate.com/github/gfw-api/fw-contextual-layers/test_coverage)
 
 This repository includes the forest watcher context layers microservice for the WRI API.
 
@@ -16,6 +18,9 @@ Native execution requires:
 Execution using Docker requires:
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
+
+Dependencies on other Microservices:
+- [FW teams](https://github.com/gfw-api/fw-teams)
 
 ## Getting started
 
