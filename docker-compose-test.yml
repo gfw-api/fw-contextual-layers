@@ -1,10 +1,24 @@
-test:
-  extends:
-    file: base.yml
-    service: base
-  container_name: fw-contextual-layer-test
-  environment:
-    NODE_ENV: test
-    CT_URL: http://mymachine:9000
-    API_VERSION: v1
-  command: test
+version: "3"
+services:
+  test:
+    build: .
+    ports:
+      - "3025:3025"
+    container_name: fw-contextual-layer-test
+    environment:
+      PORT: 3025
+      NODE_PATH: app/src
+      NODE_ENV: test
+      CT_URL: http://mymachine:9000
+      MONGO_PORT_27017_TCP_ADDR: mongo
+      API_VERSION: v1
+      CT_REGISTER_MODE: auto
+    command: test
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:3.4
+    command: --smallfiles
+    ports:
+      - "27017"

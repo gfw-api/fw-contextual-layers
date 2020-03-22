@@ -1,8 +1,8 @@
 {
-    "logger": {
-        "name": "fw-contextual-layer",
-        "level": "warn",
-        "toFile": false,
-        "dirLogFile": null
-    }
+  "logger": {
+    "name": "fw-contextual-layer",
+    "level": "warn",
+    "toFile": false,
+    "dirLogFile": null
+  }
 }

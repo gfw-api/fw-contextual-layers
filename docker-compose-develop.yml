@@ -1,21 +1,29 @@
-develop:
-  extends:
-    file: base.yml
-    service: base
-  ports:
-    - "3025:3025"
-  environment:
-    CT_REGISTER_MODE: auto
-    CT_URL: http://mymachine:9000
-    LOCAL_URL: http://mymachine:3025
-    CT_TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im1pY3Jvc2VydmljZSIsImNyZWF0ZWRBdCI6IjIwMTYtMDktMTQifQ.IRCIRm1nfIQTfda_Wb6Pg-341zhV8soAgzw7dd5HxxQ
-    API_VERSION: v1
-  command: develop
-  volumes:
-    - ./app:/opt/fw-contextual-layer/app
-  links:
-    - mongo
-mongo:
-  extends:
-    file: base.yml
-    service: mongo
+version: "3"
+services:
+  develop:
+    build: .
+    container_name: fw-contextual-layer-develop
+    ports:
+        - "3025:3025"
+    environment:
+      PORT: 3025
+      NODE_PATH: app/src
+      CT_REGISTER_MODE: auto
+      CT_URL: http://mymachine:9000
+      LOCAL_URL: http://mymachine:3025
+      CT_TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im1pY3Jvc2VydmljZSIsImNyZWF0ZWRBdCI6IjIwMTYtMDktMTQifQ.IRCIRm1nfIQTfda_Wb6Pg-341zhV8soAgzw7dd5HxxQ
+      API_VERSION: v1
+    command: develop
+    volumes:
+      - ./app:/opt/fw-contextual-layer/app
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:3.4
+    container_name: fw-contextual-layer-mongo-develop
+    command: --smallfiles
+    ports:
+      - "27017"
+    volumes:
+      - $HOME/docker/data/fw-contextual-layer:/data/db
+    restart: always
