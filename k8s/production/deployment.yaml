@@ -9,16 +9,9 @@ spec:
   revisionHistoryLimit: 2
   template:
     metadata:
-      annotations:
-        chaos.alpha.kubernetes.io/enabled: "true"
       labels:
         name: fw-contextual-layers
     spec:
-      tolerations:
-      - key: "type"
-        operator: "Equal"
-        value: "gfw"
-        effect: "NoSchedule"
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
