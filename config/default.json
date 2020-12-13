@@ -14,5 +14,5 @@
     "host": "localhost",
     "port": "27017"
   },
-  "hansenUrl": "https://storage.googleapis.com/wri-public/Hansen18/tiles/hansen_world/v1/tc30/{z}/{x}/{y}.png"
+  "hansenUrl": "https://storage.googleapis.com/wri-public/Hansen19/tiles/hansen_world/v1/tc30/{z}/{x}/{y}.png"
 }
