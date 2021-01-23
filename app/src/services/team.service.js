@@ -1,11 +1,11 @@
 const logger = require('logger');
-const ctRegisterMicroservice = require('ct-register-microservice-node');
+const { RWAPIMicroservice } = require('rw-api-microservice-node');
 
 class TeamService {
 
     static async getTeam(teamId) {
         logger.info('Get team');
-        const team = await ctRegisterMicroservice.requestToMicroservice({
+        const team = await RWAPIMicroservice.requestToMicroservice({
             uri: `/teams/${teamId}`,
             method: 'GET',
             json: true
@@ -16,7 +16,7 @@ class TeamService {
 
     static async getTeamByUserId(userId) {
         logger.info('Get team by user id');
-        const team = await ctRegisterMicroservice.requestToMicroservice({
+        const team = await RWAPIMicroservice.requestToMicroservice({
             uri: `/teams/user/${userId}`,
             method: 'GET',
             json: true
@@ -27,7 +27,7 @@ class TeamService {
 
     static async patchTeamById(teamId, body) {
         logger.info('Get team by user id');
-        const team = await ctRegisterMicroservice.requestToMicroservice({
+        const team = await RWAPIMicroservice.requestToMicroservice({
             uri: `/teams/${teamId}`,
             method: 'PATCH',
             body,
