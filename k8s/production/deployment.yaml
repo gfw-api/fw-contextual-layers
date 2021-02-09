@@ -85,7 +85,7 @@ spec:
                   key: FASTLY_SERVICEID
                   name: mssecrets
                   optional: true
-          image: vizzuality/fw-contextual-layers
+          image: gfwdockerhub/fw-contextual-layers
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
