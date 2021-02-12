@@ -187,10 +187,23 @@ class Layer {
 
 }
 
-router.get('/', ...Layer.middleware, LayerValidator.getAll, Layer.getAll);
-router.post('/', ...Layer.middleware, LayerValidator.create, Layer.createUserLayer);
-router.patch('/:layerId', ...Layer.middleware, LayerValidator.patch, Layer.patchLayer);
-router.post('/team/:teamId', ...Layer.middleware, LayerValidator.create, Layer.createTeamLayer);
-router.delete('/:layerId', ...Layer.middleware, Layer.deleteLayer);
+const isAuthenticatedMiddleware = async (ctx, next) => {
+    logger.info(`Verifying if user is authenticated`);
+    const { query, body } = ctx.request;
+
+    const user = { ...(query.loggedUser ? JSON.parse(query.loggedUser) : {}), ...body.loggedUser };
+
+    if (!user || !user.id) {
+        ctx.throw(401, 'Unauthorized');
+        return;
+    }
+    await next();
+};
+
+router.get('/', isAuthenticatedMiddleware, ...Layer.middleware, LayerValidator.getAll, Layer.getAll);
+router.post('/', isAuthenticatedMiddleware, ...Layer.middleware, LayerValidator.create, Layer.createUserLayer);
+router.patch('/:layerId', isAuthenticatedMiddleware, ...Layer.middleware, LayerValidator.patch, Layer.patchLayer);
+router.post('/team/:teamId', isAuthenticatedMiddleware, ...Layer.middleware, LayerValidator.create, Layer.createTeamLayer);
+router.delete('/:layerId', isAuthenticatedMiddleware, ...Layer.middleware, Layer.deleteLayer);
 router.get('/loss-layer/:startYear/:endYear/:z/:x/:y.png', LayerValidator.tile, Layer.hansenLayer);
 module.exports = router;

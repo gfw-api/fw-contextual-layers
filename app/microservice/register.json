@@ -5,7 +5,6 @@
       {
 		"path": "/v1/contextual-layer",
 		"method": "GET",
-        "authenticated": true,
 		"redirect": {
 			"method": "GET",
 			"path": "/api/v1/contextual-layer"
@@ -14,7 +13,6 @@
       {
         "path": "/v1/contextual-layer",
         "method": "POST",
-        "authenticated": true,
         "redirect": {
           "method": "POST",
           "path": "/api/v1/contextual-layer"
@@ -23,7 +21,6 @@
       {
         "path": "/v1/contextual-layer/team/:teamId",
         "method": "POST",
-        "authenticated": true,
         "redirect": {
           "method": "POST",
           "path": "/api/v1/contextual-layer/team/:teamId"
@@ -32,7 +29,6 @@
       {
         "path": "/v1/contextual-layer/:layerId",
         "method": "PATCH",
-        "authenticated": true,
         "redirect": {
           "method": "PATCH",
           "path": "/api/v1/contextual-layer/:layerId"
@@ -41,7 +37,6 @@
       {
         "path": "/v1/contextual-layer/:layerId",
         "method": "DELETE",
-        "authenticated": true,
         "redirect": {
           "method": "DELETE",
           "path": "/api/v1/contextual-layer/:layerId"
