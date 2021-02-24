@@ -49,7 +49,7 @@
     "@mapbox/tilelive": "^5.12.6",
     "bunyan": "^1.8.5",
     "config": "^1.21.0",
-    "rw-api-microservice-node": "^3.3.0",
+    "rw-api-microservice-node": "^3.3.3",
     "d3": "3.5.12",
     "jsonapi-serializer": "2.1.1",
     "kcors": "^2.1.1",
